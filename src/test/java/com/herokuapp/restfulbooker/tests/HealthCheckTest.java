@@ -1,18 +1,18 @@
 package com.herokuapp.restfulbooker.tests;
 
+import com.herokuapp.restfulbooker.utilities.BaseTest;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.*;
 
-public class HealthCheckTest
+public class HealthCheckTest extends BaseTest
 {
     @Test
     public void healthCheckTest()
     {
-        String pingCheck = "https://restful-booker.herokuapp.com/ping";
-
-        given().
+        given()
+            .spec(specification).
         when().
-            get(pingCheck).
+            get("/ping").
         then().
             assertThat().
             statusCode(201);

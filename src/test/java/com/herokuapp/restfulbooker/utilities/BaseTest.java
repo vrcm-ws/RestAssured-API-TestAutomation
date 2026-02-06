@@ -1,8 +1,10 @@
 package com.herokuapp.restfulbooker.utilities;
 
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.json.JSONObject;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -14,6 +16,7 @@ import java.util.Optional;
 public class BaseTest
 {
     protected SoftAssert softAssert;
+    protected RequestSpecification specification;
 
     protected String createBooking = "https://restful-booker.herokuapp.com/booking";
     protected String getBookingIDs = "https://restful-booker.herokuapp.com/booking";
@@ -23,10 +26,13 @@ public class BaseTest
     protected String partialBookingUpdate = "https://restful-booker.herokuapp.com/booking/";
     protected String deleteBooking = "https://restful-booker.herokuapp.com/booking/";
 
+    protected String baseURL = "https://restful-booker.herokuapp.com";
+
     @BeforeMethod
     public void methodSetup()
     {
         softAssert = new SoftAssert();
+        specification = new RequestSpecBuilder().setBaseUri(baseURL).build();
     }
 
     public JSONObject getRequestBody(Map<String, Object> bookingDetails)
